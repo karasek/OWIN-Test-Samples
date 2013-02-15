@@ -1,0 +1,66 @@
+{
+   "jobs":[
+      {
+         "id" : 1,
+         "title":"Software developer in .NET, C#",
+         "description":"Developing web application on ASP.NET platform for printing and personalized communication solution.",
+         "required":[
+            "very good knowledge of C# and MS.NET platform",
+            "basic knowledge of HTML, CSS, JavaScript and ASP.NET",
+            "willingness and ability to learn about new technologies"
+         ],
+         "language":"Fluent Czech language and English language on technical level."
+      },
+      {
+         "id" : 2,
+         "title":"Software developer in J2EE",
+         "description":"Developing and programming J2EE applications and maintainance of existing applications.",
+         "required":[
+            "knowledge of Java programming language and JSE platforms (AWT, Swing etc.), J2EE (JSP, Servlet, JSF, JDBC etc.)",
+            "analytical and conceptual thinking and very good knowledge of OOP principles"
+         ],
+         "language":"Fluent Czech language and English language on technical level."
+      },
+      {
+         "id" : 3,
+         "title":"Product analyst",
+         "description":"Indentifying market opportunities and defining product vision and strategy for several GMC products worldwide.",
+         "required":[
+            "at least 3-year experience at comparable position",
+            "IT background",
+            "excellent communication skills"
+         ],
+         "language":"excellent English and basic Czech"
+      },
+      {
+         "id" : 4,
+         "title":"Software test engineer (tester)",
+         "description":"Create testing scenarios which prove proper functionality, test automation.",
+         "required":[
+            "experience with testing min. 2 years",
+            "at least basic knowledge of programmin in Java or .NET or C#"
+         ],
+         "language":"technical English and fluent Czech"
+      },
+      {
+         "id" : 5,
+         "title":"Trainer and training materials creator",
+         "description":"Realization of trainings in English and Czech and creation of training materials and training in e-learning system.",
+         "required":[
+            "very good presentation skills and IT background."
+         ],
+         "language":"excellent English and fluent Czech"
+      },
+      {
+         "id" : 6,
+         "title":"Professional services consultant",
+         "description":"Providing support for both internal and external customers, installation of GMC solution and customized system settings.",
+         "required":[
+            "experienced in IT and in project management",
+            "good communication and presentation skills",
+            "excellent analytical skills"
+         ],
+         "language":"fluent English and Czech"
+      }
+   ]
+}

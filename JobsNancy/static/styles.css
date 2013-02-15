@@ -1,0 +1,13 @@
+﻿body {
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.spacing {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.descr {
+    font-weight: bolder; 
+}

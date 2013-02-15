@@ -1,0 +1,11 @@
+﻿<div class="spacing">
+    <h2>{{job.Title}}</h2>
+    <p class="descr">{{job.Description}}</p>
+    <h5>{{job.Requirements}}</h5>
+    <ul>
+        <li ng-repeat="req in job.Required">
+            {{req}}
+        </li> 
+    </ul>
+    <p>Language: {{job.Language}}</p>
+</div>

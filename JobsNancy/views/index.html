@@ -1,0 +1,32 @@
+<!doctype html>
+
+<html ng-app="jobssample">
+<head>
+    <title>Jobs Sample</title>    
+    <script src="static/lib/angular.min.js"></script>
+    <script src="static/lib/ui-bootstrap-0.1.0.min.js"></script>
+    <script src="static/jobscontroller.js"></script>
+    <link href="static/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="static/styles.css" rel="stylesheet">    
+</head>
+
+<body>
+    <div ng-controller="JobsCtrl">
+        <h3>Open positions</h3>
+        <table class="table table-hover">
+            <tr>
+                <th>Title</th>
+                <th>Action</th>
+            </tr>
+            <tr ng-repeat="job in jobs">
+                <td>{{job.Title}}</td>
+                <td>
+                    <button class="btn btn-info" ng-click="infoAt($index)">Info</button>
+                    <a class="btn btn-success" href="/crash">Apply</a>
+                    <button class="btn btn-danger" ng-click="delete(job.Id)">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
