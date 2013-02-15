@@ -20,7 +20,7 @@ namespace Owin.Samples.JobsOwin
         static Func<IDictionary<string, object>, Task> LogBefore(Func<IDictionary<string, object>, Task> next)
         {
             return env =>
-                {                    
+                {
                     var request = new OwinRequest(env);
                     Console.WriteLine("{0} {1}", request.Method, request.Path);
                     return next(env);
