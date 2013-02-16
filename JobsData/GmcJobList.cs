@@ -11,7 +11,8 @@ namespace Owin.Samples.Jobs
     public class GmcJobList : IJobList
     {
         readonly List<Job> _jobs = new List<Job>();
-
+        int _lastId;
+        
         class JobJson
         {
             public List<Job> Jobs { get; set; }
@@ -24,16 +25,12 @@ namespace Owin.Samples.Jobs
             {
                 _jobs = JsonSerializer.DeserializeFromReader<JobJson>(reader).Jobs;
             }
+            _lastId = _jobs.Count;
         }
 
         public Task<List<Job>> ListJobs()
         {
             return Task.FromResult(_jobs);
-        }
-
-        public void DeleteJob(int id)
-        {
-            _jobs.RemoveAll(j => j.Id == id);
         }
 
         public Task<Job> GetJob(int id)
@@ -42,6 +39,17 @@ namespace Owin.Samples.Jobs
             if (job == null)
                 throw new Exception(string.Format("Job id {0} not found.", id));
             return Task.FromResult(job);
+        }
+        
+        public void DeleteJob(int id)
+        {
+            _jobs.RemoveAll(j => j.Id == id);
+        }
+        
+        public void AddJob(Job job)
+        {
+            job.Id = ++_lastId;
+            _jobs.Add(job);
         }
     }
 
