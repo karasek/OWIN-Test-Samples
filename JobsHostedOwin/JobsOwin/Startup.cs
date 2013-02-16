@@ -6,6 +6,8 @@ using Owin.Types;
 
 namespace Owin.Samples.JobsOwin
 {
+    using AppFunc = Func<IDictionary<string, object>, Task>;
+    
     public class Startup
     {
         public void Configuration(IAppBuilder app)
@@ -17,7 +19,7 @@ namespace Owin.Samples.JobsOwin
             app.Run(WebApp.App(new GmcJobList()));
         }
 
-        static Func<IDictionary<string, object>, Task> LogBefore(Func<IDictionary<string, object>, Task> next)
+        static AppFunc LogBefore(AppFunc next)
         {
             return env =>
                 {
@@ -27,6 +29,4 @@ namespace Owin.Samples.JobsOwin
                 };
         }
     }
-
 }
-

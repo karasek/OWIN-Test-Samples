@@ -32,9 +32,8 @@ function JobsCtrl($scope, $http, $dialog) {
     
     $scope.send = function() {
         $http.post('/jobs/add',  $scope.addJobData).
-            success(function(){
-               $scope.addJobData = {};
-               $scope.fetch();
+            success(function(newjob){
+               $scope.jobs.push(newjob);
             });
     };
 

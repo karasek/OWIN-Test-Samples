@@ -46,10 +46,11 @@ namespace Owin.Samples.Jobs
             _jobs.RemoveAll(j => j.Id == id);
         }
         
-        public void AddJob(Job job)
+        public Task<int> AddJob(Job job)
         {
             job.Id = ++_lastId;
             _jobs.Add(job);
+            return Task.FromResult(job.Id);
         }
     }
 

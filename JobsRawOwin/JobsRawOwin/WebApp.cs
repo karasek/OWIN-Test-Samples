@@ -28,8 +28,8 @@ namespace Owin.Samples.JobsRawOwin
             var responseBody = (Stream)environment["owin.ResponseBody"];
             try
             {
+                environment["owin.ResponseStatusCode"] = 200; //should be optional
                 await Handle(method, path, responseBody);
-                environment["owin.ResponseStatusCode"] = 200;
             }
             catch (Exception)
             {
