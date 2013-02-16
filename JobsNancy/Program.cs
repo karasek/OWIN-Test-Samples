@@ -1,5 +1,5 @@
 ﻿using System;
-using Nancy.Hosting.Self;
+using Microsoft.Owin.Hosting;
 
 namespace Owin.Samples.JobsNancy
 {
@@ -8,14 +8,12 @@ namespace Owin.Samples.JobsNancy
         static void Main(string[] args)
         {
             const string url = "http://localhost:8080";
-            var nancyHost = new NancyHost(new Uri(url));
-            nancyHost.Start();
-
-            Console.WriteLine("Running server on {0}", url);
-            Console.WriteLine("Press enter to exit");
-            Console.ReadLine();
-            
-            nancyHost.Stop();
+            using (WebApplication.Start<Startup>(url))
+            {
+                Console.WriteLine("Running on {0}", url);
+                Console.WriteLine("Press enter to exit");
+                Console.ReadLine();
+            }
         }
     }
 }

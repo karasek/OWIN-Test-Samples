@@ -27,6 +27,12 @@
                 </td>
             </tr>
         </table>
+        <h2>Add new position</h2>
+        <form name="addJobForm">
+          Title: <input name="input" ng-model="addJobData.Title">
+          Description: <input name="input" ng-model="addJobData.Description">
+          <button type="button" class="btn" ng-click="send()">Send</button>
+        </form>
     </div>
 </body>
 </html>

@@ -12,6 +12,7 @@ function JobInfoDialogController($scope, dialog, item) {
 
 function JobsCtrl($scope, $http, $dialog) {
     $scope.jobs = [];
+    $scope.addJobData = {};
 
     $scope.fetch = function () {
         $http.get('jobs').success(function (data) {
@@ -27,6 +28,14 @@ function JobsCtrl($scope, $http, $dialog) {
         var item = $scope.jobs[index];
         var d = $dialog.dialog({resolve: { item: item } });
         d.open('static/detail.html', 'JobInfoDialogController');
+    };
+    
+    $scope.send = function() {
+        $http.post('/jobs/add',  $scope.addJobData).
+            success(function(){
+               $scope.addJobData = {};
+               $scope.fetch();
+            });
     };
 
     $scope.fetch();

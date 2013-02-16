@@ -1,3 +1,4 @@
+using Nancy.ModelBinding;
 using Owin.Samples.Jobs;
 
 namespace Owin.Samples.JobsNancy
@@ -13,13 +14,22 @@ namespace Owin.Samples.JobsNancy
 
             Get["/"] = _ => _jobList.ListJobs().Result;
 
-            Get["/{id}"] = parameters => _jobList.GetJob(parameters.id).Result;
+            Get["/{id}"] = parameters => 
+                              _jobList.GetJob(parameters.id).Result;
 
             Delete["/{id}"] = parameters =>
-                                  {
-                                      _jobList.DeleteJob(parameters.id);
-                                      return "OK";
-                                  };
+                                {
+                                  _jobList.DeleteJob(parameters.id);
+                                  return 200;
+                                };
+            
+            Post["/add"] = _  =>
+						        {
+        	                        var job = this.Bind<Job>();
+        	                        _jobList.AddJob(job);
+        	                        return 200;
+						        };
+            
         }
     }
 }
