@@ -10,9 +10,8 @@ namespace Owin.Samples.Jobs
         Task<Job> GetJob(int id);
 
         void AddJob(Job job);
-        
+
         void DeleteJob(int id);
-  
     }
 }
 
