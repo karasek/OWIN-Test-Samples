@@ -4,7 +4,7 @@
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseNancy(new NancyBootstrapper());
+            app.UseNancy();
         }
     }
 }

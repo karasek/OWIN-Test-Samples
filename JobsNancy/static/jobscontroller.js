@@ -9,6 +9,7 @@ function JobInfoDialogController($scope, dialog, item) {
         dialog.close(result);
     };
 }
+//JobInfoDialogController.$inject = ['$scope'];
 
 function JobsCtrl($scope, $http, $dialog) {
     $scope.jobs = [];
@@ -39,4 +40,4 @@ function JobsCtrl($scope, $http, $dialog) {
 
     $scope.fetch();
 };
-//JobsCtrl.$inject = ['$scope', '$http'];
+//JobsCtrl.$inject = ['$scope', '$http', $dialog];

@@ -14,22 +14,21 @@ namespace Owin.Samples.JobsNancy
 
             Get["/"] = _ => _jobList.ListJobs().Result;
 
-            Get["/{id}"] = parameters =>
-                              _jobList.GetJob(parameters.id).Result;
+            Get["/{id}"] = parameters => 
+                        _jobList.GetJob(parameters.id).Result;
 
             Delete["/{id}"] = parameters =>
-                                {
-                                    _jobList.DeleteJob(parameters.id);
-                                    return 200;
-                                };
+                    {
+                        _jobList.DeleteJob(parameters.id);
+                        return 200;
+                    };
 
             Post["/add"] = _ =>
-                                {
-                                    var job = this.Bind<Job>("Id");
-                                    return _jobList.AddJob(job)
-                                        .ContinueWith(t => _jobList.GetJob(t.Result))
-                                        .Result.Result;
-                                };
+                    {
+                        var job = this.Bind<Job>("Id");
+                        var jobId = _jobList.AddJob(job).Result;
+                        return _jobList.GetJob(jobId).Result;
+                    };
 
         }
     }

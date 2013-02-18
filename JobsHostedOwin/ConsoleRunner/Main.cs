@@ -8,7 +8,7 @@ namespace Owin.Samples.ConsoleRunner
     {
         static void Main(string[] args)
         {
-            const string url = "http://+:8080";
+            const string url = "http://localhost:8080";
 
             using (WebApplication.Start<Startup>(url))
             {
