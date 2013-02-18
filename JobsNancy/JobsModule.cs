@@ -25,7 +25,7 @@ namespace Owin.Samples.JobsNancy
 
             Post["/add"] = _ =>
                                 {
-                                    var job = this.Bind<Job>();
+                                    var job = this.Bind<Job>("Id");
                                     return _jobList.AddJob(job)
                                         .ContinueWith(t => _jobList.GetJob(t.Result))
                                         .Result.Result;
