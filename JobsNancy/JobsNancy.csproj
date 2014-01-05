@@ -56,6 +56,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRootPathProvider.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="NancyBootstrapper.cs" />
     <Compile Include="JobsModule.cs" />
@@ -75,27 +76,19 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="static\detail.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="static\jobscontroller.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="static\lib\angular.min.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="static\lib\bootstrap.min.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="static\lib\ui-bootstrap-0.1.0.min.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="static\styles.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="views\index.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="static\reactApp.js" />
+    <Content Include="static\detail.html" />
+    <Content Include="static\jobscontroller.js" />
+    <Content Include="static\lib\angular.min.js" />
+    <Content Include="static\lib\bootstrap.min.css" />
+    <Content Include="static\lib\bootstrap.min.js" />
+    <Content Include="static\lib\jquery.min.js" />
+    <Content Include="static\lib\JSXTransformer.js" />
+    <Content Include="static\lib\react.min.js" />
+    <Content Include="static\lib\ui-bootstrap-0.1.0.min.js" />
+    <Content Include="static\styles.css" />
+    <Content Include="views\react.html" />
+    <Content Include="views\index.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

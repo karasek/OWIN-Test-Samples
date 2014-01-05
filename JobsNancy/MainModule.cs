@@ -8,6 +8,8 @@ namespace Owin.Samples.JobsNancy
         {
             Get["/"] = _ => View["index"];
 
+            Get["/react"] = _ => View["react"];
+
             Get["/crash"] = _ => { throw new Exception("Something wrong"); };
         }
     }
