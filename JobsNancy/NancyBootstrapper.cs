@@ -32,5 +32,13 @@ namespace Owin.Samples.JobsNancy
                 return null;
             };
         }
+
+        protected override IRootPathProvider RootPathProvider
+        {
+            get
+            {
+                return new CustomRootPathProvider();
+            }
+        }
     }
 }
