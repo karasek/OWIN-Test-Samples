@@ -16,6 +16,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
+    <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -74,12 +75,28 @@
       <Name>Jobs</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJs</TypeScriptModuleKind>
+    <TypeScriptNoImplicitAny>True</TypeScriptNoImplicitAny>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJs</TypeScriptModuleKind>
+  </PropertyGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="bobril\bobril.ts" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="angular\angular.html" />
     <Content Include="angular\detail.html" />
     <Content Include="angular\jobscontroller.js" />
     <Content Include="angular\lib\angular.min.js" />
+    <Content Include="bobril\bobril.html" />
     <Content Include="bobril\lib\bobril.min.js" />
     <Content Include="react\lib\JSXTransformer.js" />
     <Content Include="react\lib\react.min.js" />
@@ -96,6 +113,8 @@
     <Content Include="views\index.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
