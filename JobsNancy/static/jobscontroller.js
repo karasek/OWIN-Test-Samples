@@ -16,23 +16,23 @@ function JobsCtrl($scope, $http, $dialog) {
     $scope.addJobData = {};
 
     $scope.fetch = function () {
-        $http.get('jobs').success(function (data) {
+        $http.get('../jobs').success(function (data) {
             $scope.jobs = data;
         });
     };
 
     $scope.delete = function (id) {
-        $http.delete('jobs/' + id).then($scope.fetch);
+        $http.delete('../jobs/' + id).then($scope.fetch);
     };
 
     $scope.infoAt = function (index) {
         var item = $scope.jobs[index];
         var d = $dialog.dialog({resolve: { item: item } });
-        d.open('static/detail.html', 'JobInfoDialogController');
+        d.open('detail.html', 'JobInfoDialogController');
     };
     
     $scope.send = function() {
-        $http.post('/jobs/add',  $scope.addJobData).
+        $http.post('../jobs/add',  $scope.addJobData).
             success(function(newjob){
                $scope.jobs.push(newjob);
             });

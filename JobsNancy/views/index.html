@@ -1,39 +1,13 @@
-<!doctype html>
-
-<html ng-app="jobssample">
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Jobs Sample</title>    
-    <script src="static/lib/angular.min.js"></script>
-    <script src="static/lib/ui-bootstrap-0.1.0.min.js"></script>
-    <script src="static/jobscontroller.js"></script>
-    <link href="static/lib/bootstrap.min.css" rel="stylesheet">
-    <link href="static/styles.css" rel="stylesheet">    
+    <meta charset="utf-8" />
+    <title>Sample apps in different SPA frameworks</title>
 </head>
-
 <body>
-    <div ng-controller="JobsCtrl">
-        <h3>GMC open positions</h3>
-        <table class="table table-hover">
-            <tr>
-                <th>Title</th>
-                <th>Action</th>
-            </tr>
-            <tr ng-repeat="job in jobs">
-                <td>{{job.Title}}</td>
-                <td>
-                    <button class="btn btn-info" ng-click="infoAt($index)">Info</button>
-                    <a class="btn btn-success" href="/crash">Apply</a>
-                    <button class="btn btn-danger" ng-click="delete(job.Id)">Delete</button>
-                </td>
-            </tr>
-        </table>
-        
-        <h3>Add new position</h3>
-        <form name="addJobForm">
-          Title: <input name="input" ng-model="addJobData.Title">
-          Description: <input name="input" ng-model="addJobData.Description">
-          <button type="button" class="btn" ng-click="send()">Send</button>
-        </form>
-    </div>
+    <h1>Implementations:</h1>
+    <a href="static/angular.html"><h3>Angular</h3></a>
+    <a href="static/bobril.html"><h3>Bobril</h3></a>
+    <a href="static/react.html"><h3>ReactJs</h3></a>
 </body>
 </html>

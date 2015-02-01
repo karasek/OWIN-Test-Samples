@@ -110,7 +110,7 @@ var NewJobForm = React.createClass({
     }
     
     var newJob = {Title: title, Description: description};
-    $.post('/jobs/add', newJob, function(data){this.props.onAdded(data);}).bind(this);
+    $.post('../jobs/add', newJob, function(data){this.props.onAdded(data);}).bind(this);
     this.refs.title.getDOMNode().value = '';
     this.refs.description.getDOMNode().value = '';
     
@@ -172,7 +172,7 @@ var JobList = React.createClass({
   },
 
   componentDidMount: function() {
-    $.get("jobs", function(result) {
+    $.get("../jobs", function(result) {
         this.setState({ jobs: result });
     }.bind(this));
   },
@@ -210,10 +210,10 @@ var JobList = React.createClass({
   deleteJob: function(id) {
     var jobList = this;
     $.ajax({
-      url:  "jobs/" + id,
+      url:  "../jobs/" + id,
       type: 'DELETE',
       success: function() { 
-        $.get("jobs", function(result) {
+        $.get("../jobs", function(result) {
           jobList.setState({ jobs: result });
         }); 
       }

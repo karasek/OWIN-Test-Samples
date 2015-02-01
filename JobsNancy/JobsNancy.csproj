@@ -87,7 +87,8 @@
     <Content Include="static\lib\react.min.js" />
     <Content Include="static\lib\ui-bootstrap-0.1.0.min.js" />
     <Content Include="static\styles.css" />
-    <Content Include="views\react.html" />
+    <Content Include="static\react.html" />
+    <Content Include="static\angular.html" />
     <Content Include="views\index.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
