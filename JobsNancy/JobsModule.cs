@@ -5,7 +5,7 @@ namespace Owin.Samples.JobsNancy
 {
     public class JobsModule : Nancy.NancyModule
     {
-        private readonly IJobList _jobList;
+        readonly IJobList _jobList;
 
         public JobsModule(IJobList jobList)
             : base("/jobs")

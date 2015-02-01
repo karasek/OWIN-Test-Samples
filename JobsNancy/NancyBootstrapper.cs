@@ -19,7 +19,12 @@ namespace Owin.Samples.JobsNancy
         {
             nancyConventions.StaticContentsConventions.Add(
                           StaticContentConventionBuilder.AddDirectory("static", @"static"));
-
+            nancyConventions.StaticContentsConventions.Add(
+                          StaticContentConventionBuilder.AddDirectory("angular", @"angular"));
+            nancyConventions.StaticContentsConventions.Add(
+                          StaticContentConventionBuilder.AddDirectory("bobril", @"bobril"));
+            nancyConventions.StaticContentsConventions.Add(
+                          StaticContentConventionBuilder.AddDirectory("react", @"react"));
             base.ConfigureConventions(nancyConventions);
         }
 

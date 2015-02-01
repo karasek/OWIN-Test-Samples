@@ -76,9 +76,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="static\reactApp.js" />
-    <Content Include="static\detail.html" />
-    <Content Include="static\jobscontroller.js" />
+    <Content Include="angular\angular.html" />
+    <Content Include="angular\detail.html" />
+    <Content Include="angular\jobscontroller.js" />
+    <Content Include="angular\lib\angular.min.js" />
+    <Content Include="bobril\lib\bobril.min.js" />
+    <Content Include="react\lib\JSXTransformer.js" />
+    <Content Include="react\lib\react.min.js" />
+    <Content Include="react\react.html" />
+    <Content Include="react\reactApp.js" />
     <Content Include="static\lib\angular.min.js" />
     <Content Include="static\lib\bootstrap.min.css" />
     <Content Include="static\lib\bootstrap.min.js" />
@@ -87,8 +93,6 @@
     <Content Include="static\lib\react.min.js" />
     <Content Include="static\lib\ui-bootstrap-0.1.0.min.js" />
     <Content Include="static\styles.css" />
-    <Content Include="static\react.html" />
-    <Content Include="static\angular.html" />
     <Content Include="views\index.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
