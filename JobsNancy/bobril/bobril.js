@@ -23,53 +23,86 @@ var JobsApp;
         }
         return { tag: tag, className: clsName, attrs: attributes, children: args };
     }
-    var ActionButton = (function () {
-        function ActionButton() {
-        }
-        ActionButton.render = function (ctx, me) {
+    var ActionButton = {
+        render: function (ctx, me) {
             me.tag = "button";
             me.className = ctx.data.className;
             me.children = ctx.data.label;
-        };
-        ActionButton.onClick = function (ctx, event) {
+        },
+        onClick: function (ctx, event) {
             ctx.data.perform(ctx.data.id);
             return true;
-        };
-        return ActionButton;
-    })();
-    JobsApp.ActionButton = ActionButton;
+        }
+    };
     var JobDetail = (function () {
         function JobDetail() {
         }
         return JobDetail;
     })();
-    var Job = (function () {
-        function Job() {
+    var BootstrapModal = {
+        render: function (ctx, me) {
+            me.tag = 'div';
+            if (ctx.data.title != undefined)
+                me.className = 'modal show';
+            else
+                me.className = 'modal hide';
+            me.children = [
+                hc("div", "modal-header", h("h3", ctx.data.title)),
+                hc("div", "modal-body", ctx.data.children),
+                hc("div", "modal-footer", "Click anywhere to close")
+            ];
+        },
+        onClick: function (ctx) {
+            ctx.data.onClose();
+            return true;
         }
-        Job.render = function (ctx, me, oldMe) {
+    };
+    function jobDetailModal(jd, onCloseFce) {
+        return {
+            tag: "div",
+            data: {
+                onClose: onCloseFce,
+                confirm: "OK",
+                title: jd.Title,
+                children: [
+                    hc("p", "descr", jd.Description),
+                    h("h5", jd.Requirements),
+                    h("ul", (jd.Required) ? jd.Required.map(function (req) { return h("li", req); }) : ''),
+                    h("p", "Language:", jd.Language)
+                ]
+            },
+            component: BootstrapModal
+        };
+    }
+    var JobComponent = {
+        render: function (ctx, me) {
             me.tag = "tr";
             me.children = [
                 h("td", ctx.data.job.Title),
-                h("td", [
-                    hc("button", "btn btn-info", ["Info"]),
-                    hca("a", "btn btn-success", { href: "/crash" }, ["Apply"]),
-                    {
-                        component: ActionButton,
-                        data: {
-                            id: ctx.data.job.Id,
-                            label: "Delete",
-                            className: "btn btn-danger",
-                            perform: function (id) { return ctx.data.onDelete(id); }
-                        }
+                h("td", {
+                    component: ActionButton,
+                    data: {
+                        id: ctx.data.job.Id,
+                        label: "Info",
+                        className: "btn btn-info",
+                        perform: function (id) { return ctx.data.onInfo(id); }
                     }
-                ])
+                }, hca("a", "btn btn-success", { href: "/crash" }, "Apply"), {
+                    component: ActionButton,
+                    data: {
+                        id: ctx.data.job.Id,
+                        label: "Delete",
+                        className: "btn btn-danger",
+                        perform: function (id) { return ctx.data.onDelete(id); }
+                    }
+                })
             ];
-        };
-        return Job;
-    })();
+        }
+    };
     var JobList = (function () {
         function JobList() {
             this.jobs = this.loadFromServerSync();
+            this.showModalId = -1;
         }
         JobList.prototype.loadFromServerSync = function () {
             var xhReq = new XMLHttpRequest();
@@ -88,27 +121,40 @@ var JobsApp;
                 }
             }
         };
+        JobList.prototype.showInfo = function (id) {
+            this.showModalId = id;
+            //document.getElementById('infoModal')
+        };
+        JobList.prototype.closeInfo = function () {
+            this.showModalId = -1;
+        };
+        JobList.prototype.getSelected = function () {
+            for (var i = 0; i < this.jobs.length; i++)
+                if (this.jobs[i].Id == this.showModalId)
+                    return this.jobs[i];
+            return new JobDetail();
+        };
         return JobList;
     })();
     function jobComponent(jobList, jd) {
         return {
             tag: "div",
-            component: Job,
+            component: JobComponent,
             data: {
                 job: jd,
-                onDelete: function (id) { return jobList.deleteJob(id); }
+                onDelete: function (id) { return jobList.deleteJob(id); },
+                onInfo: function (id) { return jobList.showInfo(id); }
             }
         };
     }
-    var App = (function () {
-        function App() {
-        }
-        App.init = function (ctx, me) {
+    var App = {
+        init: function (ctx, me) {
             ctx.jobs = new JobList();
-        };
-        App.render = function (ctx, me, oldMe) {
+        },
+        render: function (ctx, me) {
             me.tag = "div";
             me.children = [
+                jobDetailModal(ctx.jobs.getSelected(), function () { return ctx.jobs.closeInfo(); }),
                 {
                     tag: "table",
                     className: "table table-hover",
@@ -121,9 +167,8 @@ var JobsApp;
                     ]
                 }
             ];
-        };
-        return App;
-    })();
+        }
+    };
     b.init(function () {
         b.invalidate();
         return [
