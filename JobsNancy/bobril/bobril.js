@@ -35,7 +35,9 @@ var JobsApp;
         }
     };
     var JobDetail = (function () {
-        function JobDetail() {
+        function JobDetail(title, description) {
+            this.Title = title;
+            this.Description = description;
         }
         return JobDetail;
     })();
@@ -121,9 +123,16 @@ var JobsApp;
                 }
             }
         };
+        JobList.prototype.addJob = function (jd) {
+            var xhReq = new XMLHttpRequest();
+            xhReq.open("POST", "../jobs/add", false);
+            xhReq.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+            xhReq.send(JSON.stringify(jd));
+            this.jobs.push((JSON.parse(xhReq.responseText)));
+            b.invalidate();
+        };
         JobList.prototype.showInfo = function (id) {
             this.showModalId = id;
-            //document.getElementById('infoModal')
         };
         JobList.prototype.closeInfo = function () {
             this.showModalId = -1;
@@ -132,7 +141,7 @@ var JobsApp;
             for (var i = 0; i < this.jobs.length; i++)
                 if (this.jobs[i].Id == this.showModalId)
                     return this.jobs[i];
-            return new JobDetail();
+            return new JobDetail(undefined, undefined);
         };
         return JobList;
     })();
@@ -147,6 +156,15 @@ var JobsApp;
             }
         };
     }
+    var OnChangeComponent = {
+        onChange: function (ctx, v) {
+            ctx.data.onChange(v);
+        }
+    };
+    function textInput(value, onChange) {
+        return { tag: "input", attrs: { value: value }, data: { onChange: onChange }, component: OnChangeComponent };
+    }
+    var spacer = { tag: "div", style: "height:1em" };
     var App = {
         init: function (ctx, me) {
             ctx.jobs = new JobList();
@@ -165,7 +183,20 @@ var JobsApp;
                         ]),
                         ctx.jobs.jobs.map(function (jd) { return jobComponent(ctx.jobs, jd); })
                     ]
-                }
+                },
+                h("h3", "Add new position"),
+                hc("div", "newJobForm", "Title: ", textInput(ctx.newTitle, function (v) { return ctx.newTitle = v; }), " ", "Description: ", textInput(ctx.newDescription, function (v) { return ctx.newDescription = v; }), h("br"), spacer, {
+                    component: ActionButton,
+                    data: {
+                        label: "Add",
+                        className: "btn",
+                        perform: function (id) {
+                            ctx.jobs.addJob(new JobDetail(ctx.newTitle, ctx.newDescription));
+                            ctx.newTitle = '';
+                            ctx.newDescription = '';
+                        }
+                    }
+                })
             ];
         }
     };

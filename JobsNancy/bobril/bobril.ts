@@ -40,6 +40,11 @@ module JobsApp {
     }
 
     class JobDetail {
+        constructor(title: string, description: string) {
+            this.Title = title;
+            this.Description = description;
+        }
+
         Id: number;
         Title: string;
         Description: string;
@@ -62,7 +67,7 @@ module JobsApp {
                 hc("div", "modal-footer", "Click anywhere to close")
             ];
         },
-        onClick(ctx: any){
+        onClick(ctx: any) {
             ctx.data.onClose();
             return true;
         }
@@ -153,9 +158,17 @@ module JobsApp {
             }
         }
 
+        addJob(jd: JobDetail) {
+            var xhReq = new XMLHttpRequest();
+            xhReq.open("POST", "../jobs/add", false);
+            xhReq.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+            xhReq.send(JSON.stringify(jd));
+            this.jobs.push(<JobDetail>(JSON.parse(xhReq.responseText)));
+            b.invalidate();
+        }
+
         showInfo(id: number) {
             this.showModalId = id;
-            //document.getElementById('infoModal')
         }
 
         closeInfo() {
@@ -166,7 +179,7 @@ module JobsApp {
             for (var i = 0; i < this.jobs.length; i++)
                 if (this.jobs[i].Id == this.showModalId)
                     return this.jobs[i];
-            return new JobDetail();
+            return new JobDetail(undefined, undefined);
         }
 
         jobs: Array<JobDetail>;
@@ -175,6 +188,9 @@ module JobsApp {
 
     interface IAppCtx {
         jobs: JobList;
+
+        newTitle: string;
+        newDescription: string;
     }
 
     function jobComponent(jobList: JobList, jd: JobDetail): IBobrilComponent {
@@ -189,7 +205,29 @@ module JobsApp {
         }
     }
 
+
+    interface IOnChangeData {
+        onChange: (value: any) => void;
+    }
+
+    interface IOnChangeCtx {
+        data: IOnChangeData;
+    }
+
+    var OnChangeComponent: IBobrilComponent = {
+        onChange(ctx: IOnChangeCtx, v: any): void {
+            ctx.data.onChange(v);
+        }
+    }
+
+    function textInput(value: string, onChange: (value: string) => void): IBobrilNode {
+        return { tag: "input", attrs: { value: value }, data: { onChange: onChange }, component: OnChangeComponent };
+    }
+
+    var spacer = { tag: "div", style: "height:1em" };
+
     var App: IBobrilComponent = {
+
         init(ctx: IAppCtx, me: IBobrilNode): void {
             ctx.jobs = new JobList();
         },
@@ -208,7 +246,26 @@ module JobsApp {
                         ]),
                         ctx.jobs.jobs.map(jd => jobComponent(ctx.jobs, jd))
                     ]
-                }];
+                },
+                h("h3", "Add new position"),
+                hc("div", "newJobForm",
+                    "Title: ", textInput(ctx.newTitle, (v: string) => ctx.newTitle = v), " ",
+                    "Description: ", textInput(ctx.newDescription, (v: string) => ctx.newDescription = v),
+                    h("br"), spacer,
+                    {
+                        component: ActionButton,
+                        data: {
+                            label: "Add",
+                            className: "btn",
+                            perform: (id: number) => {
+                                ctx.jobs.addJob(new JobDetail(ctx.newTitle, ctx.newDescription));
+                                ctx.newTitle = '';
+                                ctx.newDescription = '';
+                            }
+                        }
+                    }
+                    )
+            ];
         }
     }
 
